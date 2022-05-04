@@ -102,6 +102,6 @@ content<- paste("Region: ", K$county, "<br>",
 k_1<- leaflet(K) %>%
   addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png')%>%
   setView(-73.95185, 40.721079,zoom = 9)%>%
-  addCircles(lng = K$lng, lat = K$lat,color="red",data=K, popup = content,radius = K$avg_wkly_wage)
+  addCircles(lng = K$lng, lat = K$lat,color="red",data=K, popup = content,radius = K$avg_wkly_wage*4)
 k_1
 ```
