@@ -75,21 +75,3 @@ p3
 ```{R,echo=FALSE,message=FALSE,warning=FALSE}
 p4
 ```
-
-```{R,echo=FALSE,message=FALSE,warning=FALSE}
-USA <- getData("GADM", country = "usa", level = 2)
-mydata <- data.frame(county= K$county,
-                     state= K$states,
-                     avg_wkly_wage = K$avg_wkly_wage,
-                     oty_avg_wkly_wage_chg=K$oty_avg_wkly_wage_chg,
-                     qtrly_estabs= K$qtrly_estabs,
-                     oty_qtrly_estabs_chg= K$oty_qtrly_estabs_chg,
-                     stringsAsFactors = FALSE)
-
-temp <- merge(USA, mydata,
-              by.x = c("NAME_1", "NAME_2"), by.y = c("state", "county"),
-              all.x = TRUE,duplicateGeoms = TRUE)
-
-
-mypal <- colorNumeric(palette = "viridis", domain = temp$avg_wkly_wage)
-```

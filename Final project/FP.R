@@ -66,7 +66,7 @@ temp <- merge(USA, mydata,
 
 mypal <- colorNumeric(palette = "viridis", domain = temp$avg_wkly_wage)
 leaflet() %>% 
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png')%>%
   setView(lat = 39.8283, lng = -98.5795, zoom = 4) %>%
   addPolygons(data = USA, stroke = FALSE, smoothFactor = 0.2, fillOpacity = 0.3,
               fillColor = ~mypal(temp$avg_wkly_wage),
