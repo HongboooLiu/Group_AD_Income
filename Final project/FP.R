@@ -65,16 +65,27 @@ temp <- merge(USA, mydata,
 
 
 mypal <- colorNumeric(palette = "viridis", domain = temp$avg_wkly_wage)
-leaflet() %>% 
+#leaflet() %>% 
+#  addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png')%>%
+#  setView(lat = 39.8283, lng = -98.5795, zoom = 4) %>%
+#  addPolygons(data = USA, stroke = FALSE, smoothFactor = 0.2, fillOpacity = 0.3,
+#              fillColor = ~mypal(temp$avg_wkly_wage),
+#              popup = "Region: ", temp$NAME_2, "<br>",
+#                            "average weekly wage: ", temp$avg_wkly_wage, "<br>",
+#                            "over the year change in average weekly wage:",temp$oty_avg_wkly_wage_chg, "<br>",
+#                            "Count of establishments for a given quarter",temp$qtrly_estabs, "<br>"
+#                             %>%
+#  addLegend(position = "bottomleft", pal = mypal, values = temp$avg_wkly_wage,
+#            title = "average weekly wage",
+#            opacity = 1)
+
+content<- paste("Region: ", K$county, "<br>",
+                "average weekly wage: ", K$avg_wkly_wage, "<br>",
+                "over the year change in average weekly wage:",K$oty_avg_wkly_wage_chg, "<br>",
+                "Count of establishments for a given quarter",K$qtrly_estabs, "<br>")
+k_1<- leaflet(K) %>%
   addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png')%>%
-  setView(lat = 39.8283, lng = -98.5795, zoom = 4) %>%
-  addPolygons(data = USA, stroke = FALSE, smoothFactor = 0.2, fillOpacity = 0.3,
-              fillColor = ~mypal(temp$avg_wkly_wage),
-              popup = paste("Region: ", temp$NAME_2, "<br>",
-                            "average weekly wage: ", temp$avg_wkly_wage, "<br>",
-                            "over the year change in average weekly wage:",temp$oty_avg_wkly_wage_chg, "<br>",
-                            "Count of establishments for a given quarter",temp$qtrly_estabs, "<br>"
-                            )) %>%
-  addLegend(position = "bottomleft", pal = mypal, values = temp$avg_wkly_wage,
-            title = "average weekly wage",
-            opacity = 1)
+  setView(-73.95185, 40.721079,zoom = 11)%>%
+  addCircles(lng = K$lng, lat = K$lat,color="red",data=K, popup = content,radius = K$avg_wkly_wage)
+k_1
+
